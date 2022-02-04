@@ -12,7 +12,6 @@ async function showPreview(link){
 }
 
 async function walkTelegramFiles(){
-  console.log(directoryPath)
   fs.readdir(directoryPath,async function(err, files) {
     if (err) {
       console.log("Error getting directory information.")
