@@ -32,14 +32,18 @@ async function walkTelegramFiles(){
           itemArr.source = "telegram";
 
           if(itemArr.type == "link"){
+            const link = fs.readFileSync(path.join(directoryPath, file),{encoding:'utf8', flag:'r'});
+            itemArr.url = link;
+            itemArr.preview = await showPreview(link);
+
+            /*
             await fs.readFile (path.join(directoryPath, file), 'utf8',async function (err, link) {
               if (err) {
                 console.log(err);
                 process.exit(1);
               }
-              itemArr.url = link;
-              itemArr.preview = await showPreview(link);
             });
+            */
 
           }
 
