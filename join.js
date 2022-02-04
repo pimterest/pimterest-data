@@ -8,7 +8,7 @@ let jsonData = [];
 
 async function showPreview(link){
   const previewData = await linkPreviewGenerator( link);
-  console.log(previewData);
+  return previewData;
 }
 
 async function walkTelegramFiles(){
@@ -16,11 +16,9 @@ async function walkTelegramFiles(){
     if (err) {
       console.log("Error getting directory information.")
     } else {
-      files.forEach(async function(file) {
 
-        console.log(file)
+      for (const file of files) {
         if(file !=".keep"){
-
           var  basefile = file.replace(/\.[^/.]+$/, "")
           var filearr = basefile.split("_");
 
@@ -32,30 +30,29 @@ async function walkTelegramFiles(){
 
           if(itemArr.type == "link"){
             const link = fs.readFileSync(path.join(directoryPath, file),{encoding:'utf8', flag:'r'});
+		
             itemArr.url = link;
             itemArr.preview = await showPreview(link);
-
-            /*
-            await fs.readFile (path.join(directoryPath, file), 'utf8',async function (err, link) {
-              if (err) {
-                console.log(err);
-                process.exit(1);
-              }
-            });
-            */
-
+            jsonData.push(itemArr);
           }
-
-          if(filearr[2] == "image"){
+          else if(itemArr.type == "image"){
             itemArr.image = file;
+            jsonData.push(itemArr);
           }
-
-          console.log(file)
-          jsonData.push(itemArr);
         }
-      })
+      };
 
-      console.log(jsonData);
+      // convert JSON object to string
+      const data = JSON.stringify(jsonData);
+      
+      // write JSON string to a file
+      fs.writeFile('out/telegram.json', data, (err) => {
+         if (err) {
+            throw err;
+         }
+         console.log("JSON data is saved.");
+      });
+
 
     }
   })
@@ -68,14 +65,4 @@ walkTelegramFiles();
 
 
 
-// convert JSON object to string
-const data = JSON.stringify(jsonData);
-
-// write JSON string to a file
-fs.writeFile('out/telegram.json', data, (err) => {
-  if (err) {
-    throw err;
-  }
-  console.log("JSON data is saved.");
-});
 
