@@ -2,8 +2,13 @@ const path = require("path")
 const fs = require("fs")
 const util = require("util")
 const linkPreviewGenerator = require("link-preview-generator");
+//const xml2js = require('xml2js');
+//const https = require('https');
+const Parser = require('rss-parser');
 
-const directoryPath = path.join(__dirname, "telegram")
+const rssurl = "https://rss.pimsnel.com/i/?a=rss&get=s&hours=1680000000000000";
+
+const directoryPath = path.join(__dirname, "telegram");
 let jsonData = [];
 
 async function showPreview(link){
@@ -56,11 +61,31 @@ async function walkTelegramFiles(){
 
     }
   })
+}
+
+async function walkRSS(){
 
 
+	let parser = new Parser({
+		xml2js: {
+			//strict: false,
+		}
+	});
+
+	(async () => {
+
+		let feed = await parser.parseURL(rssurl);
+		console.log(feed.title);
+
+		feed.items.forEach(item => {
+			console.log(item.title + ':' + item.link)
+		});
+
+	})();
 }
 
 walkTelegramFiles();
+walkRSS();
 
 
 
