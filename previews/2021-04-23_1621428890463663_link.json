@@ -1,0 +1,1 @@
+{"title":"Docker without Docker","description":"Our users deliver software to us as Docker containers, but we don’t use Docker to run them. We transmogrify container images into Firecracker micro-VMs. Here's how.","image":"https://fly.io/blog/2021-04-08/starry-containers.jpg","domainName":"fly.io","source":"rss","type":"link"}
