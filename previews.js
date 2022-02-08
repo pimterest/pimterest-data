@@ -8,6 +8,14 @@ const rssurl = "https://rss.pimsnel.com/i/?a=rss&get=s&hours=168000000000000";
 const directoryPath = path.join(__dirname, "telegram");
 const filenameCache = './cache/previews-uid.json';
 
+let blacklistArr = [];
+
+fs.readFile('./blacklist.txt', function(err, data) {
+  if(err) throw err;
+
+  blacklistArr = data.toString().replace(/\r\n/g,'\n').split('\n');
+});
+
 async function exists (path) {
   try {
     await fs.accessSync(path)
@@ -17,6 +25,7 @@ async function exists (path) {
   }
 }
 
+
 async function showPreview(link){
   const previewData = await seeLink(link, {executablePath: 'chromium'});
   return previewData;
@@ -24,11 +33,16 @@ async function showPreview(link){
 
 async function cachePreview(link, filename, type, source ){
 
+  if(blacklistArr.includes(link)){
+    console.log("link in blacklist: "+ link);
+    return true;
+  }
   if(await exists(filename)){
     console.log("already in cache: "+ link);
     return true;
   }
 
+  console.log("trying: "+ link);
   previewData = await showPreview(link);
   previewData.source = source;
   previewData.type = type;
