@@ -1,0 +1,1 @@
+{"title":"If you have a ssd, don't forget to enable fstrim","description":"`services.fstrim.enable` is false by default. For whatever reason, I forgot about trimming my ssd in my config so I just updated it to true.","image":"https://reddit.com/static/pixel.png","domainName":"reddit.com","source":"rss","type":"link"}

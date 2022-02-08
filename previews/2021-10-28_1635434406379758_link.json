@@ -1,0 +1,1 @@
+{"title":"How to transition from shell.nix to flake.nix?","description":"I have a project that depends on flutter. Using a `shell.nix` to specify my development environment I'd have: # shell.nix { pkgs ?...","image":"https://reddit.com/static/pixel.png","domainName":"reddit.com","source":"rss","type":"link"}
