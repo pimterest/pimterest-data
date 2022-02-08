@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "link-preview-generator": "^1.0.7",
-    "rss-parser": "^3.12.0"
+    "rss-parser": "^3.12.0",
+    "see-link": "^2.0.1"
   },
   "homepage": "https://github.com/pimterest/pimterest-data#readme"
 }
