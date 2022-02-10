@@ -7,6 +7,7 @@ const directoryPath = "./previews/"
 let jsonArr = [];
 
 async function joinPreviews(){
+  let i = 0;
   fs.readdir(directoryPath, async function(err, files) {
     if (err) {
       console.log("Error getting directory information.")
@@ -23,17 +24,26 @@ async function joinPreviews(){
 
             const jsonItem = fs.readFileSync(path.join(directoryPath, file),{encoding:'utf8', flag:'r'});
             var jsonParsed = JSON.parse(jsonItem);
+            i++;
             jsonArr.push(jsonParsed);
           }
           else if(itemArr.type == "image"){
             //jsonData.push(itemArr);
           }
+
+
+        };
+
+      }
+    }
+
+    const data = JSON.stringify(jsonArr);
     fs.writeFileSync(filenameAll, data);
     console.log("wrote " + filenameAll);
+    console.log(i + " items ");
 
 
   });
-
 }
 
 //////// MAIN
