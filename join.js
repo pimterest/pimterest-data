@@ -23,7 +23,9 @@ async function joinPreviews(){
           if(itemArr.type == "link"){
 
             const jsonItem = fs.readFileSync(path.join(directoryPath, file),{encoding:'utf8', flag:'r'});
+
             var jsonParsed = JSON.parse(jsonItem);
+            jsonParsed.date = filearr[0];
             i++;
             jsonArr.push(jsonParsed);
           }
